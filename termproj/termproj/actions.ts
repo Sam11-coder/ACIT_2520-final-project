@@ -11,6 +11,7 @@ import { auth } from "./lib/auth";
 export async function signInAction(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  
   try {
     await auth.api.signInEmail({
       body: {
@@ -19,9 +20,10 @@ export async function signInAction(formData: FormData) {
       },
       headers: await headers(),
     });
-  } catch (error: unknown) {
-    const msg = (error as { message: string }).message;
-    return redirect("/login?error=" + msg);
+  } catch (error: any) {
+    // FIX: Encode the error message so it doesn't break the URL
+    const msg = error.message || "Something went wrong";
+    return redirect(`/login?error=${encodeURIComponent(msg)}`);
   }
 
   redirect("/posts");
@@ -32,16 +34,24 @@ export async function signUpAction(formData: FormData) {
   const password = formData.get("password") as string;
   const name = formData.get("name") as string;
 
-  await auth.api.signUpEmail({
-    body: {
-      email,
-      password,
-      name,
-    },
-    headers: await headers(),
-  });
+  // FIX: Added try/catch block here to handle "Password too short" or "Email taken"
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+      },
+      headers: await headers(),
+    });
+  } catch (error: any) {
+    // If error, redirect back to signup page with the error message
+    const msg = error.message || "Something went wrong";
+    return redirect(`/signup?error=${encodeURIComponent(msg)}`);
+  }
 
-  redirect("/posts");
+  // On success, send them to login
+  redirect("/login");
 }
 
 export async function signOutAction() {

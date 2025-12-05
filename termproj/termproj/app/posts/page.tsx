@@ -17,6 +17,7 @@ export default async function PostsPage() {
               <Link role="button" href="/login">
                 Login
               </Link>
+              <Link href="/signup" role="button" style={{ marginLeft: '10px' }}>Sign Up</Link>
             </>
           ) : (
             <>
