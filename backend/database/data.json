@@ -1,4 +1,23 @@
 {
-  "users": [],
-  "tips": []
+  "users": [
+    {
+      "id": "2d494eaf-1dbb-4ebe-86fa-4c4cbc03253d",
+      "username": "avatarUser",
+      "password": "pass",
+      "profilePicture": "https://example.com/avatar.png"
+    },
+    {
+      "id": "e2614270-0e11-418b-9d5e-fa33d2f56da7",
+      "username": "sam",
+      "password": "1223",
+      "profilePicture": ""
+    }
+  ],
+  "tips": [
+    {
+      "id": "1559ac22-9ed3-43f3-9974-43803ff2639c",
+      "title": "Tip with avatar",
+      "userId": "2d494eaf-1dbb-4ebe-86fa-4c4cbc03253d"
+    }
+  ]
 }
