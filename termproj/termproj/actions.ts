@@ -20,12 +20,10 @@ export async function signInAction(formData: FormData) {
       },
       headers: await headers(),
     });
-  } catch (error: any) {
-    // FIX: Encode the error message so it doesn't break the URL
-    const msg = error.message || "Something went wrong";
-    return redirect(`/login?error=${encodeURIComponent(msg)}`);
-  }
-
+} catch (error) {
+    const msg = (error as Error).message || "Something went wrong";
+    return redirect(`/signup?error=${encodeURIComponent(msg)}`);
+}
   redirect("/posts");
 }
 
@@ -34,7 +32,6 @@ export async function signUpAction(formData: FormData) {
   const password = formData.get("password") as string;
   const name = formData.get("name") as string;
 
-  // FIX: Added try/catch block here to handle "Password too short" or "Email taken"
   try {
     await auth.api.signUpEmail({
       body: {
@@ -44,13 +41,10 @@ export async function signUpAction(formData: FormData) {
       },
       headers: await headers(),
     });
-  } catch (error: any) {
-    // If error, redirect back to signup page with the error message
-    const msg = error.message || "Something went wrong";
+  } catch (error) {
+    const msg = (error as Error).message || "Something went wrong";
     return redirect(`/signup?error=${encodeURIComponent(msg)}`);
-  }
-
-  // On success, send them to login
+}
   redirect("/login");
 }
 
@@ -162,7 +156,6 @@ export async function updateProfileImageAction(formData: FormData) {
     redirect("/settings?error=Image URL is required");
   }
 
-  // Update user's image in database
   await prisma.user.update({
     where: { id: user.id },
     data: { image: imageUrl },
