@@ -1,0 +1,48 @@
+:root:not([data-theme="dark"]) {
+  --pico-primary-background: #050080;
+  --pico-primary-hover-background: #03005a;
+}
+
+.authOptions {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+}
+
+.individualPost {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.box {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.settings-container {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.profile-preview {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.profile-preview h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.navbar {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
